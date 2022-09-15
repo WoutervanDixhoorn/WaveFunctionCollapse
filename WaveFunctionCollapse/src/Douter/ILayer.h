@@ -1,5 +1,5 @@
 #pragma once
-
+#include <SDL.h>
 
 namespace Douter {
 
@@ -11,7 +11,7 @@ namespace Douter {
 		virtual void OnDettach() {};
 
 		virtual void Update(double deltaTime) = 0;
-		virtual void Draw() {};
+		virtual void Draw(SDL_Renderer* renderer) {};
 		virtual void OnImGuiRender() {};
 
 	};

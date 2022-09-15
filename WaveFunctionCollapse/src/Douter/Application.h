@@ -34,7 +34,7 @@ namespace Douter {
 
 		virtual void Init() = 0;
 
-		float clearColor[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	private:
 		static Application* s_Instance;
 
@@ -47,7 +47,8 @@ namespace Douter {
 		
 
 	private:
-		SDL_Window* m_Window = NULL;
+		SDL_Window* m_Window;
+		SDL_Renderer* m_Renderer;
 		SDL_GLContext m_GraphicsContext;
 	};
 

@@ -43,6 +43,8 @@ namespace Douter {
 			return;
 		}
 
+		m_Renderer = SDL_CreateRenderer(m_Window, -1, SDL_RENDERER_ACCELERATED);
+
 		//Check glad/opengl
 		printf("OpenGL loaded\n");
 		gladLoadGLLoader(SDL_GL_GetProcAddress);
@@ -61,7 +63,6 @@ namespace Douter {
 		int w, h;
 		SDL_GetWindowSize(m_Window, &w, &h);
 		glViewport(0, 0, w, h);
-		glClearColor(0.0f, 0.5f, 1.0f, 0.0f);
 
 		//Setup Layers
 		m_Layers = std::vector<Douter::ILayer*>();
@@ -118,7 +119,7 @@ namespace Douter {
 			//Draw!
 			for (ILayer* layer : m_Layers)
 			{
-				layer->Draw();
+				layer->Draw(m_Renderer);
 			}
 
 			//Draw ImGui!

@@ -1,23 +1,31 @@
 #pragma once
 #include "ILayer.h"
+#include "ImGuiLayer.h"
 
 class WaveLayer : public Douter::ILayer
 {
 public:
 
-	virtual void OnAttach() const
+	virtual void OnAttach()
 	{
 	}
 
-	virtual void OnDettach() const
+	virtual void OnDettach()
 	{
 	}
 
-	virtual void Update(double deltaTime) const
+	virtual void Update(double deltaTime)
 	{
 	}
 
-	virtual void Draw() const
+	virtual void OnImGuiDraw()
+	{
+		Douter::ImGuiLayer::Begin();
+
+		Douter::ImGuiLayer::End();
+	}
+
+	virtual void Draw()
 	{
 	}
 };

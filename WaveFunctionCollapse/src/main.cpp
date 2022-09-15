@@ -8,7 +8,7 @@
 class WaveFunctionCollapse : public Douter::Application
 {
 private:
-	WaveLayer* m_WaveLayer = NULL;
+	WaveLayer* m_WaveLayer = nullptr;
 
 public:
 

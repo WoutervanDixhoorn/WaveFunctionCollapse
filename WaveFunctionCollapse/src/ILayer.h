@@ -1,16 +1,18 @@
 #pragma once
 
+
 namespace Douter {
 
 	class ILayer
 	{
 	public:
 		
-		virtual void OnAttach() const {};
-		virtual void OnDettach() const {};
+		virtual void OnAttach() {};
+		virtual void OnDettach() {};
 
-		virtual void Update(double deltaTime) const = 0;
-		virtual void Draw() const = 0;
+		virtual void Update(double deltaTime) = 0;
+		virtual void Draw() {};
+		virtual void OnImGuiRender() {};
 
 	};
 

@@ -45,15 +45,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\woute\source\repos\WaveFunctionCollapse\WaveFunctionCollapse\vendor\include\SDL2;C:\Users\woute\source\repos\WaveFunctionCollapse\WaveFunctionCollapse\vendor\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\woute\source\repos\WaveFunctionCollapse\WaveFunctionCollapse\vendor\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)WaveFunctionCollapse\vendor\include\SDL2;$(SolutionDir)WaveFunctionCollapse\vendor\include;D:\Dev\C++\WaveFunctionCollapse\WaveFunctionCollapse\vendor\imgui;D:\Dev\C++\WaveFunctionCollapse\WaveFunctionCollapse\vendor\imgui\backends;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)WaveFunctionCollapse\vendor\lib\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Platform)-$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Users\woute\source\repos\WaveFunctionCollapse\WaveFunctionCollapse\vendor\include\SDL2;C:\Users\woute\source\repos\WaveFunctionCollapse\WaveFunctionCollapse\vendor\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\woute\source\repos\WaveFunctionCollapse\WaveFunctionCollapse\vendor\lib\x64;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)WaveFunctionCollapse\vendor\include\SDL2;$(SolutionDir)WaveFunctionCollapse\vendor\include;D:\Dev\C++\WaveFunctionCollapse\WaveFunctionCollapse\vendor\imgui;D:\Dev\C++\WaveFunctionCollapse\WaveFunctionCollapse\vendor\imgui\backends;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)WaveFunctionCollapse\vendor\lib\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Platform)-$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -88,13 +88,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\glad\glad.c" />
+    <ClCompile Include="src\ImGuiLayer.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="vendor\imgui\imgui.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_demo.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_draw.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_stdlib.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_tables.cpp" />
+    <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\ILayer.h" />
+    <ClInclude Include="src\ImGuiLayer.h" />
     <ClInclude Include="src\WaveLayer.h" />
+    <ClInclude Include="vendor\imgui\imconfig.h" />
+    <ClInclude Include="vendor\imgui\imgui.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="vendor\imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="vendor\imgui\imgui_internal.h" />
+    <ClInclude Include="vendor\imgui\imgui_stdlib.h" />
+    <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
+    <ClInclude Include="vendor\imgui\imstb_textedit.h" />
+    <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="vendor\imgui\debuggers\imgui.natstepfilter" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="vendor\imgui\debuggers\imgui.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

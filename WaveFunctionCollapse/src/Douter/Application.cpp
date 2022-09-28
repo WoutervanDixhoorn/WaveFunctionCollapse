@@ -1,9 +1,24 @@
 #include "Application.h"
+#include "Rendering/Renderer.h"
 #include <glad/glad.h>
 
 #include "ImGuiLayer.h"
 
 namespace Douter {
+
+	void GLAPIENTRY
+		MessageCallback(GLenum source,
+			GLenum type,
+			GLuint id,
+			GLenum severity,
+			GLsizei length,
+			const GLchar* message,
+			const void* userParam)
+	{
+		fprintf(stderr, "GL CALLBACK: %s type = 0x%x, severity = 0x%x, message = %s\n",
+			(type == GL_DEBUG_TYPE_ERROR ? "** GL ERROR **" : ""),
+			type, severity, message);
+	}
 
 	Application* Application::s_Instance = nullptr;
 
@@ -58,6 +73,9 @@ namespace Douter {
 		//Disable depth and face culling
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_CULL_FACE);
+
+		glEnable(GL_DEBUG_OUTPUT);
+		glDebugMessageCallback(MessageCallback, 0);
 
 		//Init glViewport
 		int w, h;
@@ -117,10 +135,12 @@ namespace Douter {
 			}
 
 			//Draw!
+			Renderer2D::BeginBatch();
 			for (ILayer* layer : m_Layers)
 			{
 				layer->Draw(m_Renderer);
 			}
+			Renderer2D::EndBatch();
 
 			//Draw ImGui!
 			ImGuiLayer::Begin();

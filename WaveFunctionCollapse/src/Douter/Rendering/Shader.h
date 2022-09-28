@@ -24,6 +24,9 @@ namespace Douter {
 
 		void Bind() const;
 		void Unbind() const;
+
+		template <typename T>
+		void SetUniform(const char* name, const T& data);
 	};
 
 }

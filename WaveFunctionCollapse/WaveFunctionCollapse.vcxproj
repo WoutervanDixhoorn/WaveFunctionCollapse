@@ -45,14 +45,14 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)WaveFunctionCollapse\vendor\include\SDL2;$(SolutionDir)WaveFunctionCollapse\vendor\include;D:\Dev\C++\WaveFunctionCollapse\WaveFunctionCollapse\vendor\imgui;D:\Dev\C++\WaveFunctionCollapse\WaveFunctionCollapse\vendor\imgui\backends;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)WaveFunctionCollapse\vendor\include\SDL2;$(SolutionDir)WaveFunctionCollapse\vendor\include;$(SolutionDir)vendor\imgui;$(SolutionDir)vendor\imgui\backends;$(SolutionDir)vendor\glm;$(SolutionDir)vendor\glm\glm;$(ProjectDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)WaveFunctionCollapse\vendor\lib\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Platform)-$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)WaveFunctionCollapse\vendor\include\SDL2;$(SolutionDir)WaveFunctionCollapse\vendor\include;D:\Dev\C++\WaveFunctionCollapse\WaveFunctionCollapse\vendor\imgui;D:\Dev\C++\WaveFunctionCollapse\WaveFunctionCollapse\vendor\imgui\backends;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)WaveFunctionCollapse\vendor\include\SDL2;$(SolutionDir)WaveFunctionCollapse\vendor\include;$(SolutionDir)vendor\imgui;$(SolutionDir)vendor\imgui\backends;$(SolutionDir)vendor\glm;$(SolutionDir)vendor\glm\glm;$(ProjectDir)vendor\stb;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)WaveFunctionCollapse\vendor\lib\x64;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)bin\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin-int\$(Platform)-$(Configuration)\</IntDir>
@@ -90,7 +90,9 @@
   <ItemGroup>
     <ClCompile Include="src\Douter\Application.cpp" />
     <ClCompile Include="src\Douter\Rendering\Buffer.cpp" />
+    <ClCompile Include="src\Douter\Rendering\Renderer.cpp" />
     <ClCompile Include="src\Douter\Rendering\Shader.cpp" />
+    <ClCompile Include="src\Douter\Rendering\Texture2D.cpp" />
     <ClCompile Include="src\glad\glad.c" />
     <ClCompile Include="src\Douter\ImGuiLayer.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -102,13 +104,16 @@
     <ClCompile Include="vendor\imgui\imgui_stdlib.cpp" />
     <ClCompile Include="vendor\imgui\imgui_tables.cpp" />
     <ClCompile Include="vendor\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="vendor\stb\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Douter\Application.h" />
     <ClInclude Include="src\Douter\ILayer.h" />
     <ClInclude Include="src\Douter\ImGuiLayer.h" />
     <ClInclude Include="src\Douter\Rendering\Buffer.h" />
+    <ClInclude Include="src\Douter\Rendering\Renderer.h" />
     <ClInclude Include="src\Douter\Rendering\Shader.h" />
+    <ClInclude Include="src\Douter\Rendering\Texture2D.h" />
     <ClInclude Include="src\WaveLayer.h" />
     <ClInclude Include="vendor\imgui\imconfig.h" />
     <ClInclude Include="vendor\imgui\imgui.h" />
@@ -120,8 +125,10 @@
     <ClInclude Include="vendor\imgui\imstb_rectpack.h" />
     <ClInclude Include="vendor\imgui\imstb_textedit.h" />
     <ClInclude Include="vendor\imgui\imstb_truetype.h" />
+    <ClInclude Include="vendor\stb\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="res\shaders\basic.shader" />
     <None Include="src\res\shaders\basic.shader" />
     <None Include="vendor\imgui\debuggers\imgui.natstepfilter" />
   </ItemGroup>

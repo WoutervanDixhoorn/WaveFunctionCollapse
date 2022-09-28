@@ -51,16 +51,28 @@ namespace Douter {
 		m_VertexBuffer = buffer;
 	}
 
+	void VertexArray::AddBuffer(IndexBuffer* buffer)
+	{
+		m_IndexBuffer = buffer;
+	}
+
 	void VertexArray::Bind() const
 	{
 		if (m_VertexBuffer != nullptr)
 			m_VertexBuffer->Bind();
+		if (m_IndexBuffer != nullptr)
+			m_IndexBuffer->Bind();
 
 		glBindVertexArray(m_Id);
 	}
 
 	void VertexArray::Unbind() const
 	{
+		if (m_VertexBuffer != nullptr)
+			m_VertexBuffer->Unbind();
+		if (m_IndexBuffer != nullptr)
+			m_IndexBuffer->Unbind();
+
 		glBindVertexArray(0);
 	}
 	
@@ -111,10 +123,18 @@ namespace Douter {
 		glCreateBuffers(1, &m_Id);
 	}
 
+	VertexBuffer::VertexBuffer(size_t size)
+	{
+		glCreateBuffers(1, &m_Id);
+		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
+		glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
 	VertexBuffer::VertexBuffer(size_t size, void* data)
 	{
 		glCreateBuffers(1, &m_Id);
-		Data(size, data);
+		glBindBuffer(GL_ARRAY_BUFFER, m_Id);
+		glBufferData(GL_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
 	}
 
 	VertexBuffer::~VertexBuffer()
@@ -125,7 +145,7 @@ namespace Douter {
 	void VertexBuffer::Data(size_t size, void* data)
 	{
 		Bind();
-		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW); //TODO: Make static draw changable
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size, data); //TODO: Make dynamic draw changable
 	}
 
 	void VertexBuffer::Bind() const
@@ -135,6 +155,43 @@ namespace Douter {
 
 	void VertexBuffer::Unbind() const
 	{
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	}
+
+	//Index Buffer
+	IndexBuffer::IndexBuffer(size_t size)
+	{
+		glCreateBuffers(1, &m_Id);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+	}
+
+	IndexBuffer::IndexBuffer(size_t size, int count, uint32_t* data)
+	{
+		glCreateBuffers(1, &m_Id);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);
+	}
+
+	IndexBuffer::~IndexBuffer()
+	{
+		glDeleteBuffers(1, &m_Id);
+	}
+
+	void IndexBuffer::Data(size_t size, int count, uint32_t* data)
+	{
+		Bind();
+		m_Count = count;
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, size, data); //TODO: Make dynamic draw changable
+	}
+
+	void IndexBuffer::Bind() const
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
+	}
+
+	void IndexBuffer::Unbind() const
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	}
 }

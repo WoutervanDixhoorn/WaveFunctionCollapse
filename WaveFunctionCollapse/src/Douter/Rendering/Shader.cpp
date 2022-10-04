@@ -95,6 +95,13 @@ namespace Douter {
 	}
 
 	template <>
+	void Shader::SetUniformArray(const char* name, const int count, const int* data)
+	{
+		unsigned int uLocation = glGetUniformLocation(m_Id, name);
+		glUniform1iv(uLocation, count, data);
+	}
+
+	template <>
 	void Shader::SetUniform(const char* name, const int& data)
 	{
 		unsigned int uLocation = glGetUniformLocation(m_Id, name);

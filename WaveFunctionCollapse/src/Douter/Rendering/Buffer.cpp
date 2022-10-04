@@ -96,13 +96,35 @@ namespace Douter {
 	template<>
 	void VertexArray::Add<int>(int count)
 	{
+		Bind();
 
+		VertexAttribute attrib{
+			m_Attributes.size(), //Location
+			count,
+			AttributeType::INT
+		};
+		m_Attributes.push_back(attrib);
+
+		m_VertexSize += count * AttributeTypeToSize(AttributeType::INT);
+
+		UpdateAttributes();
 	}
 
 	template<>
 	void VertexArray::Add<unsigned int>(int count)
 	{
+		Bind();
 
+		VertexAttribute attrib{
+			m_Attributes.size(), //Location
+			count,
+			AttributeType::UINT
+		};
+		m_Attributes.push_back(attrib);
+
+		m_VertexSize += count * AttributeTypeToSize(AttributeType::UINT);
+
+		UpdateAttributes();
 	}
 
 	void VertexArray::UpdateAttributes()
@@ -168,6 +190,7 @@ namespace Douter {
 
 	IndexBuffer::IndexBuffer(size_t size, int count, uint32_t* data)
 	{
+		m_Count = count;
 		glCreateBuffers(1, &m_Id);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_Id);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_DYNAMIC_DRAW);

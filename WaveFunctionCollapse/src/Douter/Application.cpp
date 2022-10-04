@@ -135,12 +135,14 @@ namespace Douter {
 			}
 
 			//Draw!
+			Renderer2D::GetStats()->m_Timer.Start(); //NOTE: Maybe move this to better location
 			Renderer2D::BeginBatch();
 			for (ILayer* layer : m_Layers)
 			{
 				layer->Draw(m_Renderer);
 			}
 			Renderer2D::EndBatch();
+			Renderer2D::GetStats()->m_Timer.Stop();
 
 			//Draw ImGui!
 			ImGuiLayer::Begin();

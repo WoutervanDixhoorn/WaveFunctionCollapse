@@ -3,6 +3,7 @@
 #include <SDL.h>
 #undef main
 
+#include "Rendering/Camera.h"
 #include "ILayer.h"
 #include "ImGuiLayer.h"
 
@@ -10,6 +11,17 @@ namespace Douter {
 
 	class Application
 	{
+	private:
+		static Application* s_Instance;
+
+		bool m_Running = false;
+		int m_ScreenWidth, m_ScreenHeight;
+
+		std::vector<Douter::ILayer*> m_Layers;
+		ImGuiLayer* m_ImGuiLayer;
+
+		Camera* m_ActiveCamera;
+
 	public:
 		Application(int width = 1280, int height = 720);
 		~Application();
@@ -17,6 +29,9 @@ namespace Douter {
 		inline static Application& Get() { return *s_Instance; };
 		inline SDL_Window* GetWindow() { return m_Window; };
 		inline SDL_GLContext GetContext() { return m_GraphicsContext; }
+
+		void SetActiveCamera(Camera* camera) { m_ActiveCamera = camera; };
+		inline Camera& GetActiveCamera() { return *m_ActiveCamera; }
 
 		void Run();
 
@@ -34,17 +49,7 @@ namespace Douter {
 
 		virtual void Init() = 0;
 
-		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	private:
-		static Application* s_Instance;
-
-		bool m_Running = false;
-		int m_ScreenWidth, m_ScreenHeight;
-
-		std::vector<Douter::ILayer*> m_Layers;
-		ImGuiLayer* m_ImGuiLayer;
-
-		
+		float clearColor[4] = { 0.0f, 0.0f, 0.0f, 1.0f };		
 
 	private:
 		SDL_Window* m_Window;

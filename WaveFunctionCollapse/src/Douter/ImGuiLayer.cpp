@@ -1,9 +1,12 @@
 #include "ImGuiLayer.h"
 #include "Application.h"
+#include "Rendering/Renderer.h"
 
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
 #include "imgui_impl_sdl.h"
+
+#include <string>
 
 namespace Douter {
 
@@ -38,9 +41,14 @@ namespace Douter {
 
 	void ImGuiLayer::OnImGuiRender() 
 	{
-		ImGui::Begin("Change Background");
+		ImGui::Begin("Renderer Stats");
 
 		ImGui::ColorEdit4("Color", Application::Get().clearColor);
+
+		ImGui::Text("DrawCalls: %i", Renderer2D::GetStats()->m_DrawCalls);
+		ImGui::Text("Vertex Count: %i", Renderer2D::GetStats()->m_VertexCount);
+		ImGui::Text("Quad Count: %i", Renderer2D::GetStats()->m_QuadCount);
+		ImGui::Text("Frame Time: %f ms", Renderer2D::GetStats()->m_Timer.elapsedSeconds());
 
 		ImGui::End();
 	}

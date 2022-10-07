@@ -1,16 +1,13 @@
 #pragma once
-#include "Douter/ILayer.h"
-#include "Douter/Rendering/Buffer.h"
-#include "Douter/Rendering/Shader.h"
-#include "Douter/Rendering/Renderer.h"
-#include "Douter/Rendering/Texture2D.h"
-#include "Douter/Rendering/OrthoCamera.h"
+#include "Douter/Douter.h"
 
 #include "imgui.h"
 #include "glad/glad.h"
 
 #include <glm/gtc/matrix_transform.hpp> 
 #include <glm/gtx/transform.hpp>
+
+#include <iostream>
 
 class WaveLayer : public Douter::ILayer
 {
@@ -21,6 +18,8 @@ private:
 	Douter::Texture2D* m_UvTexture;
 	Douter::Texture2D* m_CobbleTexture;
 	
+	Douter::EventHandler* m_EventHandler;
+
 public:
 
 	virtual void OnAttach()
@@ -31,6 +30,8 @@ public:
 
 		m_UvTexture = new Douter::Texture2D("res\\textures\\uvmap.jpg");
 		m_CobbleTexture = new Douter::Texture2D("res\\textures\\cobble.png");
+
+		m_EventHandler = new Douter::EventHandler();
 	}
 
 	virtual void OnDettach()
@@ -41,11 +42,36 @@ public:
 		delete m_CobbleTexture;
 	}
 
+	virtual void OnEvent(Douter::IEvent& e)
+	{
+		m_EventHandler->handleEvent<Douter::WindowResizeEvent>(e, [](Douter::WindowResizeEvent& e) {
+			e.Print();
+		});
+
+		m_EventHandler->handleEvent<Douter::WindowMinimizeEvent>(e, [](Douter::WindowMinimizeEvent& e) {
+			e.Print();
+		});
+
+		m_EventHandler->handleEvent<Douter::KeyPressEvent>(e, [&](Douter::KeyPressEvent& e) {
+			e.Print();
+
+			//Temp test code
+			if (e.GetKey() == 100)
+				camPos.x -= 0.5;
+			if (e.GetKey() == 97)
+				camPos.x += 0.5;
+
+			if(e.GetKey() == 119)
+				camPos.y -= 0.5;
+			if (e.GetKey() == 115)
+				camPos.y += 0.5;
+		});
+	}
+
 	virtual void Update(double deltaTime)
 	{
 		m_Camera->SetPosition(camPos.x, camPos.y, camPos.z);
 	}
-
 
 	virtual void OnImGuiRender()
 	{

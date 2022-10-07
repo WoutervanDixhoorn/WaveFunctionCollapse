@@ -180,6 +180,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Douter\Application.h" />
+    <ClInclude Include="src\Douter\Douter.h" />
+    <ClInclude Include="src\Douter\Events\Event.h" />
+    <ClInclude Include="src\Douter\Events\EventHandler.h" />
+    <ClInclude Include="src\Douter\Events\KeyboardEvents.h" />
+    <ClInclude Include="src\Douter\Events\MouseEvents.h" />
+    <ClInclude Include="src\Douter\Events\WindowEvents.h" />
     <ClInclude Include="src\Douter\Rendering\Camera.h" />
     <ClInclude Include="src\Douter\Rendering\OrthoCamera.h" />
     <ClInclude Include="src\Douter\Transform.h" />

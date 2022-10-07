@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "Events/EventHandler.h"
 #include "Rendering/Renderer.h"
 #include <glad/glad.h>
 
@@ -26,6 +27,8 @@ namespace Douter {
 	{
 		s_Instance = this;
 
+		m_EventHandler = new EventHandler();
+
 		if (SDL_Init(SDL_INIT_VIDEO) < 0) {
 			fprintf(stderr, "could not initialize sdl2: %s\n", SDL_GetError());
 			return;
@@ -46,6 +49,8 @@ namespace Douter {
 			SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
 			m_ScreenWidth, m_ScreenHeight, SDL_WINDOW_OPENGL
 		);
+		//Window Setting
+		SDL_SetWindowResizable(m_Window, SDL_TRUE);
 
 		if (m_Window == NULL) {
 			fprintf(stderr, "could not create window: %s\n", SDL_GetError());
@@ -121,11 +126,9 @@ namespace Douter {
 			deltaTime = (double)((NOW - LAST) * 1000 / (double)SDL_GetPerformanceFrequency());
 
 			while (SDL_PollEvent(&event)) {
-				if (event.window.event == SDL_WINDOWEVENT_CLOSE) {
-					m_Running = false;
-				}
-
 				m_ImGuiLayer->HandleSDLEvent(event);
+		
+				HandleEvents(FromSDLEvent(event));
 			}
 
 			//Update!
@@ -153,6 +156,21 @@ namespace Douter {
 			ImGuiLayer::End();
 
 			SDL_GL_SwapWindow(m_Window);
+		}
+	}
+
+	void Application::HandleEvents(IEvent& e)
+	{
+		//Window Events
+		m_EventHandler->handleEvent<WindowCloseEvent>(e, [&](WindowCloseEvent& e) {
+			std::cout << "Closing!\n";
+			m_Running = false;
+		});
+
+
+		for (ILayer* layer : m_Layers)
+		{
+			layer->OnEvent(e);
 		}
 	}
 }

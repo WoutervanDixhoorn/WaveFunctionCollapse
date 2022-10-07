@@ -6,6 +6,7 @@
 #include "Rendering/Camera.h"
 #include "ILayer.h"
 #include "ImGuiLayer.h"
+#include "Events/EventHandler.h"
 
 namespace Douter {
 
@@ -13,6 +14,8 @@ namespace Douter {
 	{
 	private:
 		static Application* s_Instance;
+
+		EventHandler* m_EventHandler;
 
 		bool m_Running = false;
 		int m_ScreenWidth, m_ScreenHeight;
@@ -34,6 +37,8 @@ namespace Douter {
 		inline Camera& GetActiveCamera() { return *m_ActiveCamera; }
 
 		void Run();
+
+		void HandleEvents(IEvent& e);
 
 		void AttachLayer(ILayer* layer)
 		{

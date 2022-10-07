@@ -1,4 +1,6 @@
 #pragma once
+#include "Events/Event.h"
+
 #include <SDL.h>
 
 namespace Douter {
@@ -11,6 +13,7 @@ namespace Douter {
 		virtual void OnDettach() {};
 
 		virtual void Update(double deltaTime) = 0;
+		virtual void OnEvent(IEvent& e) {};
 		virtual void Draw(SDL_Renderer* renderer) {};
 		virtual void OnImGuiRender() {};
 
